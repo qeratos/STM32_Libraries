@@ -86,23 +86,17 @@ extern SPI_HandleTypeDef SPI_PORT;
 #define LBBLUE      0x2B12
 
 
-//Rewrite to methods of st7789
-#define RST_Clr() HAL_GPIO_WritePin(ST7789_RST_PORT, RST_Pin, GPIO_PIN_RESET)
-#define RST_Set() HAL_GPIO_WritePin(ST7789_RST_PORT, RST_Pin, GPIO_PIN_SET)
-
-#define DC_Clr() HAL_GPIO_WritePin(DC_GPIO_Port, DC_Pin, GPIO_PIN_RESET)
-#define DC_Set() HAL_GPIO_WritePin(DC_GPIO_Port, DC_Pin, GPIO_PIN_SET)
-
-#define Select() HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_RESET)
-#define UnSelect() HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, GPIO_PIN_SET)
-
 //Macro
 #define ABS(x) ((x) > 0 ? (x) : -(x))
 
 class st7789{
     public:
         st7789(uint8_t rotation);
-
+        static void fill(uint8_t colour);
+        static void fill_area(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t colour);
+        static void draw(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const uint16_t *data);
+        static void write_char(uint16_t x, uint16_t y, char symbol, FontDef font, uint16_t color, uint16_t bgcolor);
+        static void write_string(uint16_t x, uint16_t y, const char *str, FontDef font, uint16_t color, uint16_t bgcolor);
     private:
         static void reset(uint8_t mode);
         static void dc(uint8_t mode);
@@ -112,7 +106,7 @@ class st7789{
         static void write_data(uint8_t *buff, size_t size);
         static void write_small_data(uint8_t data);
         static void set_window(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
-
+        static void set_rotaion(uint8_t rotation);
         uint8_t x_shift,
         y_shift;
 
