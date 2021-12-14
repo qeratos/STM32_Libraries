@@ -104,14 +104,14 @@ class st7789{
         st7789(uint8_t rotation);
 
     private:
-        reset(uint8_t mode);
-        dc(uint8_t mode);
-        chip_select(uint8_t mode);
+        static void reset(uint8_t mode);
+        static void dc(uint8_t mode);
+        static void chip_select(uint8_t mode);
 
-        write_command(uint8_t cmd);
-        write_data(uint8_t *buff, size_t size);
-        write_small_data(uint8_t data);
-        set_window(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
+        static void write_command(uint8_t cmd);
+        static void write_data(uint8_t *buff, size_t size);
+        static void write_small_data(uint8_t data);
+        static void set_window(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1);
 
         uint8_t x_shift,
         y_shift;
